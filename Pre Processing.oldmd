@@ -1,13 +1,3 @@
----
-nav_include: 2
-title: in case of playlist inputs, this scaler will be used to scale list of songs from the input playlist
-notebook: Pre Processing.ipynb
----
-
-## Contents
-{:.no_toc}
-*  
-{: toc}
 
 ### Import required packages
 
@@ -105,6 +95,7 @@ spotify = spotipy.Spotify(client_credentials_manager=credentials)
 
 
 ```python
+# read the data from file. the files with list of track uris
 with open('MPD_songlist.csv', 'r') as f:
     reader = csv.reader(f)
     mpd_song_list = list(reader)
@@ -139,6 +130,7 @@ len(mpd_song_list)
 
 ```python
  spotify.audio_features('spotify:track:14J3PO0VnhtcRa31r7Aj1L')
+# spotify.track('spotify:track:14J3PO0VnhtcRa31r7Aj1L') 
 ```
 
 
@@ -224,8 +216,10 @@ while i < len(mpd_song_list):
                 pickle.dump(track_attributes,open(filename,'wb'))
                 #initiaze our object
                 track_attributes= {}
+#                 break
     #         i+=40
         print('no of songs done:',i)
+#         break
             
     except:
         print('failed:',i)
@@ -244,6 +238,7 @@ mpd_song_attributes = dict()
 
 i=10000
 while i <=2263000:
+#     print('opening ' + 'MPD_songs_{}.sav'.format(i))
     a = pickle.load(open('MPD_songs_{}.sav'.format(i),'rb'))
     mpd_song_attributes.update(a)
     i += 10000
@@ -257,6 +252,7 @@ mpd_song_attributes = dict()
 
 i=20000
 while i <=100001:
+#     print('opening ' + 'MPD_songs_{}.sav'.format(i))
     a = pickle.load(open('poc_song_audio_features_last_{}.sav'.format(i),'rb'))
     mpd_song_attributes.update(a)
     i += 10000
@@ -455,8 +451,11 @@ from sklearn.preprocessing import StandardScaler
 ```python
 mpd_df = pickle.load(open('MPD_songs_final.sav','rb'))
 
+# There are few columns that wont be required for computation.
+# so we are keeping that on the right side of the data frame for easy calculation as those columns can be filtered out later.
 mpd_df_side = mpd_df[['artist_popularity','explicit','artist_genres','song_name']]
 
+# dropping file from the main df and later we will add these to the right side
 mpd_df.drop(labels=['artist_popularity','explicit','artist_genres','song_name'],inplace=True,axis=1)
 mpd_df = mpd_df.merge(mpd_df_side,left_index=True,right_index=True)
 mpd_df.head()
@@ -613,6 +612,7 @@ mpd_df.head()
 
 
 ```python
+# PRE PROCESSING DATA
 mpd_df['key'] = mpd_df['key'].astype('category')
 mpd_df['time_signature'] = mpd_df['time_signature'].astype('category')
 
@@ -626,6 +626,7 @@ for col in mpd_df.columns:
 mpd_df.dropna(inplace=True)
 
 #Since the range of values of some of the columns ('duration_ms','loudness','tempo') data varies widely
+# we are standardizing the features to use in our recommendation model
 ss = StandardScaler()
 scaler = ss.fit(mpd_df[['duration_ms','loudness','tempo']])
 
@@ -633,6 +634,8 @@ mpd_df[['duration_ms','loudness','tempo']] = scaler.transform(mpd_df[['duration_
 
 scale_features = [col for col in mpd_df.columns if col not in non_numeric]
 
+# scaled data to be used on the list of songs that we want to predict like a track list or one song.
+# in case of playlist inputs, this scaler will be used to scale list of songs from the input playlist
 pickle.dump(scaler,open('scaler_object.sav','wb'))
 
 #feature to scale, same used during preduction

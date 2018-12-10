@@ -7,7 +7,7 @@ SUMMARYSTUFF = """
 {: toc}
 """
 filetoread = sys.argv[1]
-fdtoread = open(filetoread)
+fdtoread = open(filetoread, encoding='utf-8')
 fileprefix = ".".join(filetoread.split('.')[:-1])
 filetowrite = fileprefix+".newmd"
 buffer = ""

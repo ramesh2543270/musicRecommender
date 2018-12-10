@@ -1,13 +1,3 @@
----
-nav_include: 3
-title: ax.set_xticklabels( rotation=75)
-notebook: Data and EDA.ipynb
----
-
-## Contents
-{:.no_toc}
-*  
-{: toc}
 
 ## Exploratory data analysis of Spotify MPD
 
@@ -264,6 +254,7 @@ df = pd.DataFrame.from_dict(artist_histogram, orient='index',).reset_index()
 df.columns = ['title','count']
 plt.figure(figsize=(20,10))
 ax = sns.barplot(x="title", y="count", data=df.nlargest(20, 'count'))
+# ax.set_xticklabels( rotation=75)
 plt.xlabel('Artist',fontsize = 20)
 plt.ylabel('Count',fontsize = 20)
 plt.xticks(rotation = 75)
@@ -282,7 +273,7 @@ plt.xticks(rotation = 75)
 ![png](Data%20and%20EDA_files/Data%20and%20EDA_20_1.png)
 
 
-It seems that drake�s song has appeared most among playlists.
+It seems that drake’s song has appeared most among playlists.
 
 ### Analysing Number of Edits, Playlist Length and Number of Followers
 
@@ -343,7 +334,7 @@ After analysing 13 of these audio features are selected to be used. The features
 
 `Acousticness`: a confidence measure from 0.0 to 1.0 of whether the track is acoustic. 1.0 represents high confidence that the track is acoustic.
 
-`Instrumentalness`: predicts whether a track contains no vocals. �Ooh� and �aah� sounds are treated as instrumental in this context. Rap or spoken word tracks are clearly �vocal�. The closer the instrumentalness value is to 1.0, the greater likelihood the track contains no vocal content. Values above 0.5 are intended to represent instrumental tracks, but confidence is higher as the value approaches 1.0.
+`Instrumentalness`: predicts whether a track contains no vocals. “Ooh” and “aah” sounds are treated as instrumental in this context. Rap or spoken word tracks are clearly “vocal”. The closer the instrumentalness value is to 1.0, the greater likelihood the track contains no vocal content. Values above 0.5 are intended to represent instrumental tracks, but confidence is higher as the value approaches 1.0.
 
 `Liveness`: detects the presence of an audience in the recording. Higher liveness values represent an increased probability that the track was performed live. A value above 0.8 provides strong likelihood that the track is live.
 
