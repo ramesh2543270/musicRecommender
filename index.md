@@ -1,6 +1,6 @@
 ---
-nav_include: 1
-title: "CS109A Introduction to Data Science: Final Project"
+nav_include: 0
+title: " Automatic Playlist Generation"
 notebook: Automatic Playlist Generation.ipynb
 ---
 
