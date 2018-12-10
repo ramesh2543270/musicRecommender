@@ -1,6 +1,6 @@
 ---
 nav_include: 2
-title: in case of playlist inputs, this scaler will be used to scale list of songs from the input playlist
+title: Pre Processing
 notebook: Pre Processing.ipynb
 ---
 

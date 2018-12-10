@@ -1,6 +1,6 @@
 ---
 nav_include: 3
-title: ax.set_xticklabels( rotation=75)
+title: Data and EDA
 notebook: Data and EDA.ipynb
 ---
 
