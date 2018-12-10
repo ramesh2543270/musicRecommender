@@ -1,6 +1,3 @@
----
-title: CS109A Introduction to Data Science: Final Project
----
 
 ## CS109A Introduction to Data Science: Final Project
 
