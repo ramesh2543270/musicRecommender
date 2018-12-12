@@ -1,4 +1,5 @@
 ---
+nav_include: 0
 title: Automatic Playlist Generation
 notebook: Automatic Playlist Generation.ipynb
 ---
