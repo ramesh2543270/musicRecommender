@@ -9,9 +9,8 @@ notebook: Data and EDA.ipynb
 *  
 {: toc}
 
-## Exploratory data analysis of Spotify MPD
 
-### Dataset structure
+## Dataset structure
 
 The data is structured in arrays that typically contains 1,000 playlists. Each playlist is a dictionary that contains the following fields:
 
@@ -52,7 +51,9 @@ df_playlists_info.columns
 
 
 
-### Histogram distributions of the numbers of followers, artists, and edits, split by 'collaborative' class
+## Analysis of number of followers, artists, and edits, split by 'collaborative' class
+
+### Histogram distributions and Observations
 
 
 
@@ -114,7 +115,11 @@ From above histograms, it seems that the collaborative playlist has less number 
 And collaborative has more number of edits compared to the personal playlist.
 Also we can see collaborative has more diversity. 
 
-### Let's analyse some boxplots for each of number of edits, followers, and artists by collaboration class
+## Analysis of number of edits, followers, and artists by collaboration class
+
+### Boxplots
+
+Let's analyse some boxplots for each of number of edits, followers, and artists by collaboration class
 
 
 
@@ -170,7 +175,9 @@ sns.boxplot(x='collaborative', y='num_followers', data=df_playlists_info)
 ![png](Data%20and%20EDA_files/Data%20and%20EDA_10_1.png)
 
 
-### Let's analyse the top tracks, artists, and genres
+## Top Playlists, tracks and artists
+
+Let's analyse the top tracks, artists, and genres
 
 
 
@@ -282,9 +289,11 @@ plt.xticks(rotation = 75)
 ![png](Data%20and%20EDA_files/Data%20and%20EDA_20_1.png)
 
 
-It seems that drake�s song has appeared most among playlists.
+It seems that drake&apos;s song has appeared most among playlists.
 
-### Analysing Number of Edits, Playlist Length and Number of Followers
+## Analysing Number of Edits, Playlist Length and Number of Followers
+
+#### Histogram
 
 
 
@@ -307,48 +316,47 @@ show_histogram(num_followers_histogram, 20, 'Number of Followers Histogram')
 
 
 
-![png](Data%20and%20EDA_files/Data%20and%20EDA_23_0.png)
+![png](Data%20and%20EDA_files/Data%20and%20EDA_24_0.png)
 
 
 
-![png](Data%20and%20EDA_files/Data%20and%20EDA_23_1.png)
+![png](Data%20and%20EDA_files/Data%20and%20EDA_24_1.png)
 
 
 
-![png](Data%20and%20EDA_files/Data%20and%20EDA_23_2.png)
+![png](Data%20and%20EDA_files/Data%20and%20EDA_24_2.png)
 
 
 #### Observation
 
 It seems that most people edit their playlists less than about 10 times. This makes sense, as each "edit" is a two-hour window of adding/removing songs, and most people just create an entirely new playlist instead of continually editing over the span of weeks or months. Additionally, most people have playlists that are between 15 and 30 songs in length, resulting in playlists that are about 90 minutes to 2 hours long. And, the vast majority of playlists have 5 or fewer followers. That means most playlists are quite personal and may serve to capture the specific songs of genre or mood that the user actually likes.
 
-### Exploring Spotify API for song features
 
 Here additionaly to get the individual meta data and audio features of the songs we are using Spotify's APIs.
 After analysing 13 of these audio features are selected to be used. The features for each song as follow:
 
-#### Audio features description:
+## Audio features description:
 
-`Danceability`: describes the suitability of a track for dancing. This is based on a combination of musical elements including tempo, rhythm stability, beat strength, and overall regularity. A value of 0.0 is least danceable and 1.0 is most danceable.
+`Danceability`: Describes the suitability of a track for dancing. This is based on a combination of musical elements including tempo, rhythm stability, beat strength, and overall regularity. A value of 0.0 is least danceable and 1.0 is most danceable.
 
-`Energy`: a measure from 0.0 to 1.0, and represents a perceptual measure of intensity and activity. Typically, energetic tracks feel fast, loud, and noisy. For example, death metal has high energy, while a Bach prelude scores low on the scale. Perceptual features contributing to this attribute include dynamic range, perceived loudness, timbre, onset rate, and general entropy.
+`Energy`: A measure from 0.0 to 1.0, and represents a perceptual measure of intensity and activity. Typically, energetic tracks feel fast, loud, and noisy. For example, death metal has high energy, while a Bach prelude scores low on the scale. Perceptual features contributing to this attribute include dynamic range, perceived loudness, timbre, onset rate, and general entropy.
 
-`Key`: the key the track is in. Integers map to pitches using standard Pitch Class notation. E.g. 0 = C, 1 = C/D, 2 = D, and so on.
+`Key`: The key the track is in. Integers map to pitches using standard Pitch Class notation. E.g. 0 = C, 2 = D, and so on.
 
-`Loudness`: the overall loudness of a track in decibels (dB). Loudness values are averaged across the entire track and are useful for comparing the relative loudness of tracks. Loudness is the quality of a sound that is the primary psychological correlate of physical strength (amplitude). Values typical range between -60 and 0 db.
+`Loudness`: The overall loudness of a track in decibels (dB). Loudness values are averaged across the entire track and are useful for comparing the relative loudness of tracks. Loudness is the quality of a sound that is the primary psychological correlate of physical strength (amplitude). Values typical range between -60 and 0 db.
 
-`Mode`: indicates the modality (major or minor) of a track, the type of scale from which its melodic content is derived. Major is represented by 1 and minor is 0.
+`Mode`: Indicates the modality (major or minor) of a track, the type of scale from which its melodic content is derived. Major is represented by 1 and minor is 0.
 
 `Speechiness`: Speechiness detects the presence of spoken words in a track. The more exclusively speech-like the recording (e.g. talk show, audio book, poetry), the closer to 1.0 the attribute value. Values above 0.66 describe tracks that are probably made entirely of spoken words. Values between 0.33 and 0.66 describe tracks that may contain both music and speech, either in sections or layered, including such cases as rap music. Values below 0.33 most likely represent instrumental music and other non-speech-like tracks.
 
-`Acousticness`: a confidence measure from 0.0 to 1.0 of whether the track is acoustic. 1.0 represents high confidence that the track is acoustic.
+`Acousticness`: A confidence measure from 0.0 to 1.0 of whether the track is acoustic. 1.0 represents high confidence that the track is acoustic.
 
-`Instrumentalness`: predicts whether a track contains no vocals. �Ooh� and �aah� sounds are treated as instrumental in this context. Rap or spoken word tracks are clearly �vocal�. The closer the instrumentalness value is to 1.0, the greater likelihood the track contains no vocal content. Values above 0.5 are intended to represent instrumental tracks, but confidence is higher as the value approaches 1.0.
+`Instrumentalness`: Predicts whether a track contains no vocals. &quot;Ooh&quot; and &quot;aah&quot; sounds are treated as instrumental in this context. Rap or spoken word tracks are clearly &quot;vocal&quot;. The closer the instrumentalness value is to 1.0, the greater likelihood the track contains no vocal content. Values above 0.5 are intended to represent instrumental tracks, but confidence is higher as the value approaches 1.0.
 
-`Liveness`: detects the presence of an audience in the recording. Higher liveness values represent an increased probability that the track was performed live. A value above 0.8 provides strong likelihood that the track is live.
+`Liveness`: Detects the presence of an audience in the recording. Higher liveness values represent an increased probability that the track was performed live. A value above 0.8 provides strong likelihood that the track is live.
 
-`Valence`: a measure from 0.0 to 1.0 describing the musical positiveness conveyed by a track. Tracks with high valence sound more positive (for example happy, cheerful, euphoric), while tracks with low valence sound more negative (for example sad, depressed, angry).
+`Valence`: A measure from 0.0 to 1.0 describing the musical positiveness conveyed by a track. Tracks with high valence sound more positive (for example happy, cheerful, euphoric), while tracks with low valence sound more negative (for example sad, depressed, angry).
 
-`Tempo`: the overall estimated tempo of a track in beats per minute (BPM). In musical terminology, tempo is the speed or pace of a given piece, and derives directly from the average beat duration.
+`Tempo`: The overall estimated tempo of a track in beats per minute (BPM). In musical terminology, tempo is the speed or pace of a given piece, and derives directly from the average beat duration.
 
-`Duration_ms`: the duration of the track in milliseconds.
+`Duration_ms`: The duration of the track in milliseconds.

@@ -9,30 +9,7 @@ notebook: Pre Processing.ipynb
 *  
 {: toc}
 
-### Import required packages
-
-
-
-```python
-#imported all the required packages
-import pandas as pd
-from pandas.io.json import json_normalize
-import numpy as np
-import sys, re, json, os, datetime
-from collections import Counter
-import seaborn as sns
-import matplotlib.pyplot as plt
-import csv
-from tqdm import tqdm
-
-#spotipy package for retrieving information from spotify
-import spotipy
-from spotipy.oauth2 import SpotifyClientCredentials
-import pickle
-```
-
-
-### Retrieve list of Track URIs: 
+## Retrieve list of Track URIs 
 For recommending songs, we would require few more attibutes from songs. <br> These additional attributes will be retrieved using spotify apis. <br>So first we will store all the songs uri and later use that uri to retrieve information from spotify. <br>Track and songs wil be used interchangingly as both are refer to same thing
 
 
@@ -63,7 +40,7 @@ def process_mpd(path):
 ```
 
 
-#### Retrieve and store list of Tracks
+Let&apos;s retrieve and store list of Tracks
 
 
 
@@ -85,22 +62,7 @@ with open("MPD_songlist.csv", "w") as f:
 We are storing files in between as the data is quite huge and if there is any issue with kernel or any other failure, we would lose lot of time, so we started to store data at certain points.
 Also this aproach helped us as we do not have to start from pre processing again as reading those json files took lot of time.<br> As the main recommnder file will need some preprocessed data and keeping in a local file helped.
 
-### Spotify API authentication
-
-
-
-```python
-#for retrieval of information from spotify
-#Authentication for the Spotify api
-
-clientID = 'c3c5fc22422a4d4e838e80966b832f20'
-clientSecret = '5a69ae12ffff48f190ec2e90eae1ad42'
-credentials = SpotifyClientCredentials(client_id= clientID,client_secret=clientSecret)
-spotify = spotipy.Spotify(client_credentials_manager=credentials)
-```
-
-
-### Reading data from the saved list of track file
+## Reading data from the saved list of track file
 
 
 
@@ -132,13 +94,33 @@ len(mpd_song_list)
 
 
 
-### Based on these uris, we are going to retrieve information from spotify. attributes retreived from spotify will be used for recommedations. Attributes like artist_genres, acousticness, tempo,valence and energy to name a few.
-### Cosine similarity is being used to get the list of recommended songs.
+## Retrieving audio feature using Spotify API
+
+Based on these uris, we are going to retrieve information from spotify. attributes retreived from spotify will be used for recommedations. Attributes like artist_genres, acousticness, tempo,valence and energy to name a few.<br>
+Cosine similarity is being used to get the list of recommended songs.
+
+### Spotify API authentication
+
+
+
+```python
+#for retrieval of information from spotify
+#Authentication for the Spotify api
+
+clientID = 'c3c5fc22422a4d4e838e80966b832f20'
+clientSecret = '5a69ae12ffff48f190ec2e90eae1ad42'
+credentials = SpotifyClientCredentials(client_id= clientID,client_secret=clientSecret)
+spotify = spotipy.Spotify(client_credentials_manager=credentials)
+```
+
+
+### Call 'audio_features' API
 
 
 
 ```python
  spotify.audio_features('spotify:track:14J3PO0VnhtcRa31r7Aj1L')
+
 ```
 
 
@@ -166,7 +148,11 @@ len(mpd_song_list)
 
 
 
-### The below code will save all the tracks attribute in .sav file. we can use this file at a later point for recommendation. Saving these files helped us getting all the attributes of MPD song list. we had issue earlier while running for MPD data as this ran for multiple days and any failure caused lot of time wastage. So it was computationally very expenive process, so had to use .sav file to store locally.
+### Save as SAV files
+
+The below code will save all the tracks attribute in .sav file. we can use this file at a later point for recommendation. Saving these files helped us getting all the attributes of MPD song list. we had issue earlier while running for MPD data as this ran for multiple days and any failure caused lot of time wastage. So it was computationally very expenive process, so had to use .sav file to store locally.
+
+Note: spotify.audio_features API can take a maximum of 50 uris as input, so we are incrementing our counter with 50.
 
 
 
@@ -235,7 +221,9 @@ while i < len(mpd_song_list):
 ```
 
 
-### retreiving MPD tracks and their attributes
+## Preprocess the updated Data
+
+### Read the saved Audio Feature
 
 
 
@@ -250,20 +238,9 @@ while i <=2263000:
 ```
 
 
+### Remove some insignificant attributes
 
-
-```python
-mpd_song_attributes = dict()
-
-i=20000
-while i <=100001:
-    a = pickle.load(open('poc_song_audio_features_last_{}.sav'.format(i),'rb'))
-    mpd_song_attributes.update(a)
-    i += 10000
-```
-
-
-### Create a dataframe to store and remove some insignificant attributes
+Let's create a dataframe to store and remove some of the attribute that does not have significance in terms of prediction
 
 
 
@@ -431,8 +408,6 @@ mpd_df.head()
 
 
 
-### Saving updated data
-
 
 
 ```python
@@ -441,7 +416,10 @@ pickle.dump(mpd_df, open('MPD_songs_final.sav','wb'))
 ```
 
 
-### Finalize pre processing of MPD Data
+### Finalize pre processing
+
+We will here load the final preprocessed dataset. As there are few columns that won't be required for computation,
+we will be keeping that on the right side of the data frame for easy calculation as those columns can be filtered out later.
 
 
 
@@ -609,6 +587,8 @@ mpd_df.head()
 </div>
 
 
+
+Below we are removing any column with no value and since the range of values of some of the columns ('duration_ms','loudness','tempo') data varies widely we are standardizing the features to use in our recommendation model. Finally saving the pre-processed data into a 'MPD_Processed_attributes.sav' file.
 
 
 
