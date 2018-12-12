@@ -36,7 +36,7 @@ Here our model will measure similarity bectween feature vectors by using cosine 
 
 **Cosine similarity** is a measure of similarity between two non-zero vectors of an inner product space that measures the cosine of the angle between them. The cosine of 0 degree is 1, and it is less than 1 for any angle in the interval (0,pi]. It is thus a judgment of orientation and not magnitude: two vectors with the same orientation have a cosine similarity of 1, two vectors oriented at 90 degree relative to each other have a similarity of 0, and two vectors diametrically opposed have a similarity of -1, independent of their magnitude. The cosine similarity is particularly used in positive space, where the outcome is neatly bounded in [0,1]. In other words, vectors are maximally "similar" if they're parallel and maximally "dissimilar" if they're orthogonal.
 
-<img�style="float:left;"�src="images/cosine distance.png"> 
+![png](common_files/cosine%20distance.png)
 
 
 

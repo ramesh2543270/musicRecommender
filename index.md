@@ -11,6 +11,10 @@ notebook: Automatic Playlist Generation.ipynb
 
 ### Team
 
+![png](common_files/team.png)
+
+
+![png](common_files/spotify%20logo.png)
 
 ### Motivation
 
