@@ -1,5 +1,5 @@
 ---
-title: Automatic Playlist Generation
+title: "Automatic Playlist Generation"
 notebook: Automatic Playlist Generation.ipynb
 ---
 
