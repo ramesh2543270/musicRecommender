@@ -1,5 +1,4 @@
 ---
-nav_include: 0
 title: Automatic Playlist Generation
 notebook: Automatic Playlist Generation.ipynb
 ---
@@ -11,14 +10,6 @@ notebook: Automatic Playlist Generation.ipynb
 
 
 ### Team
-
-<img�style="float:left;"�src="images/team.png"> 
-</br>
-</br>
-
-<img�style="float:left;"�src="images/spotify logo.png"> 
-
-
 
 
 ### Motivation
