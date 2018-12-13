@@ -3,8 +3,6 @@ title:  Automatic Playlist Recommender
 notebook: Automatic Playlist Recommender.ipynb
 ---
 
-# Automatic Playlist Recommender
-
 ## Team
 
 ![png](common_files/team.png)

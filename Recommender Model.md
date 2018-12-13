@@ -1,4 +1,5 @@
 ---
+nav_include: 3
 title: Recommender Systems
 notebook: Recommender Model.ipynb
 ---
