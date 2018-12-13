@@ -1,6 +1,6 @@
 theme: jekyll-theme-primer
-title: Automatic Playlist Generation
-description: Automatic Playlist Generation
+title: Automatic Playlist Recommender
+description: Automatic Playlist Recommender
 baseurl:
 markdown: kramdown
 kramdown:
