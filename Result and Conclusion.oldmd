@@ -1,14 +1,5 @@
----
-nav_include: 4
-title: Conclusion
-notebook: Result and Conclusion.ipynb
----
 
-## Contents
-{:.no_toc}
-*  
-{: toc}
-
+# Results
 
 ## Test Sample 1
 
@@ -270,7 +261,7 @@ Recommend_tracks("Somebody Took My Love",20)
     </tr>
     <tr>
       <th>15</th>
-      <td>I�ll Be Here In The Morning</td>
+      <td>I’ll Be Here In The Morning</td>
     </tr>
     <tr>
       <th>16</th>
@@ -308,7 +299,7 @@ Our model is returning songs with high cosine similarity, hence a strong recomme
 
 <b>Sample 2 :</b>
 
-We used a hindi song (`Nachangeh Saari Raath (Desi-Tronix Mix)`)for which the model successfully recommended 10 songs, however they are not very strong recommendation in terms of cosine similarity(quite low). 
+We used a hindi song (`Nachangeh Saari Raath (Desi-Tronix Mix)`)for which the model successfully recommended 10 songs, however they are not very strong recommendation in terns of cosine similarity(quite low). 
 
 
 <b>Sample 3 :</b>
@@ -316,6 +307,7 @@ We used a hindi song (`Nachangeh Saari Raath (Desi-Tronix Mix)`)for which the mo
 Here when we passed a large no of songs to be recommended, our model is returning that no of songs.
 
 
+# Conclusion
 
 An advantage of our model is that it allows individual new Songs (not in MPD) to have tracks easily recommended, without the need for extensive computation to iterate and determine its similarity to other existing playlists in MPD. Unfortunately, not computing its similarity with other playlists also means that, latent relationships outside of musicality are ignored. The existing content-based filtering recommender will not be able to identify suitable songs for playlists which are not based on musical features, for example playlists containing female artists or sexual lyrics only.
 

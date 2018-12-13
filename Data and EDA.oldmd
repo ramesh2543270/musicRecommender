@@ -1,14 +1,5 @@
----
-nav_include: 1
-title: Data and EDA.ipynb
-notebook: Data and EDA.ipynb
----
 
-## Contents
-{:.no_toc}
-*  
-{: toc}
-
+# Exploratory data analysis of Spotify MPD
 
 ## Dataset structure
 
@@ -271,6 +262,7 @@ df = pd.DataFrame.from_dict(artist_histogram, orient='index',).reset_index()
 df.columns = ['title','count']
 plt.figure(figsize=(20,10))
 ax = sns.barplot(x="title", y="count", data=df.nlargest(20, 'count'))
+# ax.set_xticklabels( rotation=75)
 plt.xlabel('Artist',fontsize = 20)
 plt.ylabel('Count',fontsize = 20)
 plt.xticks(rotation = 75)
@@ -331,6 +323,7 @@ show_histogram(num_followers_histogram, 20, 'Number of Followers Histogram')
 
 It seems that most people edit their playlists less than about 10 times. This makes sense, as each "edit" is a two-hour window of adding/removing songs, and most people just create an entirely new playlist instead of continually editing over the span of weeks or months. Additionally, most people have playlists that are between 15 and 30 songs in length, resulting in playlists that are about 90 minutes to 2 hours long. And, the vast majority of playlists have 5 or fewer followers. That means most playlists are quite personal and may serve to capture the specific songs of genre or mood that the user actually likes.
 
+# Exploring Spotify API for song features
 
 Here additionaly to get the individual meta data and audio features of the songs we are using Spotify's APIs.
 After analysing 13 of these audio features are selected to be used. The features for each song as follow:
